@@ -25,21 +25,6 @@ public class Main extends Application {
     private Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(189, 177, 92));
     private static Scanner input= new Scanner(System.in);
 
-    /***
-     * a setter methhod for the scene
-     * @param gameScene to specify that the scene is this class scene
-     */
-    public void setGameScene(Scene gameScene) {
-        this.gameScene = gameScene;
-    }
-
-    /***
-     * a setter method for the group gameRoot
-     * @param gameRoot to specify that the group is this class group
-     */
-    public void setGameRoot(Group gameRoot) {
-        this.gameRoot = gameRoot;
-    }
 
     /***
      *this method intiat the primary stage, it uses 5 scenes with thier roots: menuScene, accountScene, endGameScene, RankScene, GameScene
@@ -75,9 +60,9 @@ public class Main extends Application {
         accountRoot.getChildren().add(backgroundOfMenuForPlay);
 
         Group gameRoot = new Group();
-        setGameRoot(gameRoot);
+
         Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(189, 177, 92));
-        setGameScene(gameScene);
+
         primaryStage.setScene(gameScene);
         GameScene game = new GameScene();
         game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot);
