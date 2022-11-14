@@ -2,8 +2,10 @@ package com.example.demo;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonType;
@@ -73,12 +75,19 @@ public class Main extends Application {
         backgroundOfMenuForPlay.setX(WIDTH / 2 - 120);
         backgroundOfMenuForPlay.setY(180);
         accountRoot.getChildren().add(backgroundOfMenuForPlay);
-
+        
         Group gameRoot = new Group();
         setGameRoot(gameRoot);
+        
+        //trial 
+        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene scene = new Scene(root);
+        
+
+        
         Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(189, 177, 92));
         setGameScene(gameScene);
-        primaryStage.setScene(gameScene);
+        primaryStage.setScene(scene);
         GameScene game = new GameScene();
         game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot);
 
