@@ -1,21 +1,28 @@
 package com.example.demo;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Random;
 
 class GameScene {
     private static int HEIGHT = 700;
     private static int numberOfCells = 4; //this needs more meaningful name (it was n)
     private final static int distanceBetweenCells = 10;
-    private static double LENGTH = (HEIGHT - ((numberOfCells + 1) * distanceBetweenCells)) / (double) numberOfCells;
+    private static double LENGTH = (HEIGHT - ((numberOfCells +1) * distanceBetweenCells)) / (double) numberOfCells;
     private TextMaker textMaker = TextMaker.getSingleInstance();
     private Cell[][] cells = new Cell[numberOfCells][numberOfCells];
     private Group root;
@@ -284,13 +291,16 @@ class GameScene {
         text.setFont(Font.font(30));
         text.relocate(750, 100);
         Text scoreText = new Text();
-        root.getChildren().add(scoreText);
+        root.getChildren().addAll(scoreText);
         scoreText.relocate(750, 150);
         scoreText.setFont(Font.font(20));
         scoreText.setText("0");
 
         randomFillNumber(1);
         randomFillNumber(1);
+
+
+        Controller controller = new Controller();
 
         gameScene.addEventHandler(KeyEvent.KEY_PRESSED, key ->{
                 Platform.runLater(() -> {
@@ -303,7 +313,18 @@ class GameScene {
                         GameScene.this.moveLeft();
                     } else if (key.getCode() == KeyCode.RIGHT) {
                         GameScene.this.moveRight();
+                    } else if (key.getCode()==KeyCode.ESCAPE) {
+                        try {
+                            controller.switchToPauseMenu();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+                    /**show Hoor**/
+                    else{
+                        throw new RuntimeException("wrong key");
+                    }
+
                     GameScene.this.sumCellNumbersToScore();
                     scoreText.setText(score + "");
                     haveEmptyCell = GameScene.this.haveEmptyCell();
